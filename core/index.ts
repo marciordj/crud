@@ -3,8 +3,10 @@ import { v4 as uuid } from "uuid";
 
 const DB_FILE_PATH = "./core/db";
 
+type UUID = string;
+
 interface Todo {
-  id: string;
+  id: UUID;
   date: string;
   content: string;
   done: boolean;
@@ -49,7 +51,7 @@ function clearDb() {
   fs.writeFileSync(DB_FILE_PATH, "");
 }
 
-function update(id: string, partialTodo: Partial<Todo>): Todo {
+function update(id: UUID, partialTodo: Partial<Todo>): Todo {
   let updatedTodo;
   const readTodos = read();
 
@@ -72,8 +74,6 @@ function update(id: string, partialTodo: Partial<Todo>): Todo {
     )
   );
 
-  console.log("update -->", updatedTodo);
-
   if (!updatedTodo) {
     throw new Error("Please, provide a valid ID");
   }
@@ -81,13 +81,27 @@ function update(id: string, partialTodo: Partial<Todo>): Todo {
   return updatedTodo;
 }
 
+function deleteById(id: UUID) {
+  const readTodos = read()
+
+  const todosWithoutOne = readTodos.filter((todo) => {
+    if (id === todo.id) {
+      return false
+    }
+
+    return true
+  })
+
+  fs.writeFileSync(DB_FILE_PATH, JSON.stringify({
+    todos: todosWithoutOne
+  }, null, 2))
+}
+
 clearDb();
 create("Teste conteudo 1");
-create("Teste conteudo 2");
+const secondTodo = create("Teste conteudo 2")
+deleteById(secondTodo.id)
 const terceiraTodo = create("Teste conteudo 3");
-update(terceiraTodo.id, {
-  content: "Atualizada",
-  done: true,
-});
+
 
 console.log(read());
