@@ -82,26 +82,29 @@ function update(id: UUID, partialTodo: Partial<Todo>): Todo {
 }
 
 function deleteById(id: UUID) {
-  const readTodos = read()
+  const readTodos = read();
 
   const todosWithoutOne = readTodos.filter((todo) => {
     if (id === todo.id) {
-      return false
+      return false;
     }
 
-    return true
-  })
+    return true;
+  });
 
-  fs.writeFileSync(DB_FILE_PATH, JSON.stringify({
-    todos: todosWithoutOne
-  }, null, 2))
+  fs.writeFileSync(
+    DB_FILE_PATH,
+    JSON.stringify(
+      {
+        todos: todosWithoutOne,
+      },
+      null,
+      2
+    )
+  );
 }
 
 clearDb();
 create("Teste conteudo 1");
-const secondTodo = create("Teste conteudo 2")
-deleteById(secondTodo.id)
-const terceiraTodo = create("Teste conteudo 3");
-
-
-console.log(read());
+const secondTodo = create("Teste conteudo 2");
+deleteById(secondTodo.id);
