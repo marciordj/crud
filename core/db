@@ -1,15 +1,9 @@
 {
   "todos": [
     {
-      "id": "268b235b-f627-422e-be76-656611f3e496",
-      "date": "2023-05-21T13:53:36.679Z",
+      "id": "650bef98-09cf-41d2-8f1e-721578630b80",
+      "date": "2023-06-21T01:34:50.417Z",
       "content": "Teste conteudo 1",
-      "done": false
-    },
-    {
-      "id": "fc00e047-8f4a-4d1d-aee4-a8da0e0bd7be",
-      "date": "2023-05-21T13:53:36.680Z",
-      "content": "Teste conteudo 3",
       "done": false
     }
   ]
